@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --border: #e5e5e5;
+  --uae-red: #ef3340;
+  --uae-red-deep: #ef3340;
+  --uae-green: #00843d;
+  --uae-green-deep: #00843d;
+  --uae-white: #ffffff;
+  --uae-black: #000000;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-uae-red: var(--uae-red);
+  --color-uae-red-deep: var(--uae-red-deep);
+  --color-uae-green: var(--uae-green);
+  --color-uae-green-deep: var(--uae-green-deep);
+  --font-sans: var(--font-inter);
+  --font-arabic: var(--font-tajawal);
+  --font-serif: var(--font-playfair);
+  --font-arabic-serif: var(--font-amiri);
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto,
+    "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla",
+    sans-serif;
+  overscroll-behavior-y: none;
+  position: relative;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+html[dir="rtl"] body {
+  font-family: var(--font-tajawal), system-ui, "Apple Color Emoji",
+    "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+
+html[dir="rtl"] .font-serif {
+  font-family: var(--font-amiri), serif;
+}
+
+html[dir="rtl"] .font-mono {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+.glass {
+  background: #ffffff;
+  border: 1px solid #000000;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(239, 51, 64, 0.2);
+  color: #000;
+}
