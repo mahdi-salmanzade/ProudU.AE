@@ -40,8 +40,9 @@ export function FlagMyPhotoV2() {
   }, []);
 
   useEffect(() => {
-    if (!image) return;
-    const ratio = image.naturalWidth / image.naturalHeight;
+    const source = cropped ?? image;
+    if (!source) return;
+    const ratio = source.naturalWidth / source.naturalHeight;
     let bestId: FlagFormatId = "profile";
     let bestDiff = Infinity;
     for (const { id, format } of FLAG_FORMATS) {
@@ -52,7 +53,7 @@ export function FlagMyPhotoV2() {
       }
     }
     setFormatId(bestId);
-  }, [image]);
+  }, [image, cropped]);
 
   const format = flagFormat(formatId);
   const isSquareSource =
