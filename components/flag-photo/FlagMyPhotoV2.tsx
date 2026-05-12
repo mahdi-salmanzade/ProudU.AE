@@ -14,14 +14,26 @@ import type { FrameStyle } from "@/lib/canvas/photoFrames";
 import { BeforeAfterExamples } from "./BeforeAfterExamples";
 import { FrameSelector } from "./FrameSelector";
 import { PhotoEditor, type PhotoEditorHandle } from "./PhotoEditor";
+import { PhotoCropper } from "./PhotoCropper";
 import { ExportBar } from "./ExportBar";
 
 export function FlagMyPhotoV2() {
   const { t } = useLanguage();
   const [image, setImage] = useState<HTMLImageElement | null>(null);
+  const [cropped, setCropped] = useState<HTMLImageElement | null>(null);
   const [formatId, setFormatId] = useState<FlagFormatId>("profile");
   const [style, setStyle] = useState<FrameStyle>("archLeft");
   const editorRef = useRef<PhotoEditorHandle>(null);
+
+  const handleUpload = (img: HTMLImageElement) => {
+    setCropped(null);
+    setImage(img);
+  };
+
+  const handleReupload = () => {
+    setCropped(null);
+    setImage(null);
+  };
 
   useEffect(() => {
     fontsReady();
@@ -43,6 +55,12 @@ export function FlagMyPhotoV2() {
   }, [image]);
 
   const format = flagFormat(formatId);
+  const isSquareSource =
+    !!image && image.naturalWidth === image.naturalHeight;
+  const needsCrop =
+    !!image && formatId === "profile" && !isSquareSource && !cropped;
+  const editorImage =
+    image && formatId === "profile" ? cropped ?? image : image;
   const filename = `proudu-photo-${formatId}-${style}.png`;
 
   const handleDownload = async () => {
@@ -63,30 +81,38 @@ export function FlagMyPhotoV2() {
         {!image ? (
           <div className="mx-auto max-w-xl space-y-10">
             <BeforeAfterExamples />
-            <ImageUploader onImage={setImage} />
+            <ImageUploader onImage={handleUpload} />
           </div>
+        ) : needsCrop ? (
+          <PhotoCropper
+            image={image}
+            onConfirm={setCropped}
+            onCancel={handleReupload}
+          />
         ) : (
-          <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
-            <div className="space-y-5 border border-black bg-white p-4 sm:p-6">
-              <PhotoEditor
-                ref={editorRef}
-                image={image}
+          editorImage && (
+            <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
+              <div className="space-y-5 border border-black bg-white p-4 sm:p-6">
+                <PhotoEditor
+                  ref={editorRef}
+                  image={editorImage}
+                  format={format}
+                  style={style}
+                />
+                <ExportBar
+                  onDownload={handleDownload}
+                  onReupload={handleReupload}
+                />
+              </div>
+
+              <FrameSelector
+                image={editorImage}
                 format={format}
-                style={style}
-              />
-              <ExportBar
-                onDownload={handleDownload}
-                onReupload={() => setImage(null)}
+                value={style}
+                onChange={setStyle}
               />
             </div>
-
-            <FrameSelector
-              image={image}
-              format={format}
-              value={style}
-              onChange={setStyle}
-            />
-          </div>
+          )
         )}
       </div>
     </section>

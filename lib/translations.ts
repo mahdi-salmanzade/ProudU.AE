@@ -77,6 +77,12 @@ const _translations = {
         unsupported: "That file type isn't supported. Try JPG, PNG or WebP.",
         loadFailed: "Couldn't load that image. Try a different file.",
       },
+      crop: {
+        title: "Crop to square",
+        hint: "Drag to position. Pinch or use the slider to zoom.",
+        confirm: "Use this crop",
+        cancel: "Cancel",
+      },
     },
     proudPost: {
       heading: "Proud Post Maker",
@@ -232,6 +238,12 @@ const _translations = {
         tooLarge: "الصورة كبيرة جداً. الحد الأقصى ٢٠ ميغابايت.",
         unsupported: "نوع الملف غير مدعوم. جرّب JPG أو PNG أو WebP.",
         loadFailed: "لم نتمكن من قراءة الصورة. جرّب ملفاً آخر.",
+      },
+      crop: {
+        title: "اقتص بشكل مربع",
+        hint: "اسحب للتموضع. قرّب بالأصابع أو استخدم السلايدر.",
+        confirm: "استخدم هذا القص",
+        cancel: "إلغاء",
       },
     },
     proudPost: {
