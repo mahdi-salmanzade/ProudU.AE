@@ -57,10 +57,8 @@ export function FlagMyPhotoV2() {
   const format = flagFormat(formatId);
   const isSquareSource =
     !!image && image.naturalWidth === image.naturalHeight;
-  const needsCrop =
-    !!image && formatId === "profile" && !isSquareSource && !cropped;
-  const editorImage =
-    image && formatId === "profile" ? cropped ?? image : image;
+  const needsCrop = !!image && !isSquareSource && !cropped;
+  const editorImage = cropped ?? image;
   const filename = `proudu-photo-${formatId}-${style}.png`;
 
   const handleDownload = async () => {
